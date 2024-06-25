@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { EntityManager, getConnection } from 'typeorm';
-import { TypeOrmSQLITETestingModule } from '../test-utils/TypeOrmSQLITETestingModule';
+import { TypeOrmSQLITETestingModule } from '../test-utils/TypeORMSQLITETestingModule';
 import { InventoryModule } from '../src/routes/inventory/inventory.module';
 import { Inventory } from '../src/routes/inventory/models/inventory.entity';
 

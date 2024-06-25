@@ -22,68 +22,68 @@ describe('CustomerController', () => {
     expect(customerController).toBeDefined();
   });
 
-  // describe('create()', () => {
-  //   it('should succeed and return with a newly created customer item', async () => {
-  //     const customer: CustomerDTO = {
-  //       name: 'Tom',
-  //     };
-  //     const result = await customerController.create(customer);
-  //     expect(result).toBeDefined();
-  //     expect(result.name).toEqual(customer.name);
-  //   });
-  // });
+  describe('create()', () => {
+    it('should succeed and return with a newly created customer item', async () => {
+      const customer: CustomerDTO = {
+        name: 'Tom',
+      };
+      const result = await customerController.create(customer);
+      expect(result).toBeDefined();
+      expect(result.name).toEqual(customer.name);
+    });
+  });
 
-  // describe('update()', () => {
-  //   let connection;
-  //   let entityManager: EntityManager;
-  //   beforeAll(async () => {
-  //     connection = await getConnection();
-  //     entityManager = connection.createEntityManager();
-  //     entityManager.insert<Customer>(Customer, {
-  //       name: 'Billy',
-  //     });
-  //     insertCount++;
-  //   });
+  describe('update()', () => {
+    let connection;
+    let entityManager: EntityManager;
+    beforeAll(async () => {
+      connection = await getConnection();
+      entityManager = connection.createEntityManager();
+      entityManager.insert<Customer>(Customer, {
+        name: 'Billy',
+      });
+      insertCount++;
+    });
 
-  //   it('should succeed and return with an updated customer item', async () => {
-  //     firstRecordName = 'Jillian';
-  //     const customer = {
-  //       name: firstRecordName,
-  //     };
-  //     const customers = await customerController.findAll();
-  //     const id = customers.items[0].id.toString();
-  //     const result = await customerController.update({ id }, customer);
-  //     expect(result).toBeDefined();
-  //     expect(result.name).toEqual(customer.name);
-  //   });
-  // });
+    it('should succeed and return with an updated customer item', async () => {
+      firstRecordName = 'Jillian';
+      const customer = {
+        name: firstRecordName,
+      };
+      const customers = await customerController.findAll();
+      const id = customers.items[0].id.toString();
+      const result = await customerController.update({ id }, customer);
+      expect(result).toBeDefined();
+      expect(result.name).toEqual(customer.name);
+    });
+  });
 
-  // describe('findAll()', () => {
-  //   let connection;
-  //   let entityManager: EntityManager;
-  //   beforeAll(async () => {
-  //     connection = await getConnection();
-  //     entityManager = connection.createEntityManager();
-  //     entityManager.insert<Customer>(Customer, {
-  //       name: 'Mark',
-  //     });
-  //     insertCount++;
-  //   });
+  describe('findAll()', () => {
+    let connection;
+    let entityManager: EntityManager;
+    beforeAll(async () => {
+      connection = await getConnection();
+      entityManager = connection.createEntityManager();
+      entityManager.insert<Customer>(Customer, {
+        name: 'Mark',
+      });
+      insertCount++;
+    });
 
-  //   it('should succeed and return with an array of customers', async () => {
-  //     const result = await customerController.findAll();
-  //     expect(result.items).toBeDefined();
-  //     expect(result.items.length).toEqual(insertCount);
-  //   });
-  // });
+    it('should succeed and return with an array of customers', async () => {
+      const result = await customerController.findAll();
+      expect(result.items).toBeDefined();
+      expect(result.items.length).toEqual(insertCount);
+    });
+  });
 
-  // describe('find()', () => {
-  //   it('should succeed and return with an customer item', async () => {
-  //     const customers = await customerController.findAll();
-  //     const id = customers.items[0].id.toString();
-  //     const result = await customerController.find({ id });
-  //     expect(result).toBeDefined();
-  //     expect(result.name).toEqual(firstRecordName);
-  //   });
-  // });
+  describe('find()', () => {
+    it('should succeed and return with an customer item', async () => {
+      const customers = await customerController.findAll();
+      const id = customers.items[0].id.toString();
+      const result = await customerController.find({ id });
+      expect(result).toBeDefined();
+      expect(result.name).toEqual(firstRecordName);
+    });
+  });
 });
