@@ -1,7 +1,7 @@
 import { Injectable, Query } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
-  addGenericFilters,
+  checkNameFilter,
   formatFilter,
   PageOptionsDto,
 } from '../../../validation/filters';
@@ -23,7 +23,7 @@ export class CustomerRepository {
     @Query() filter?: PageOptionsDto,
   ): Promise<[Customer[], number]> {
     let formattedFilter = formatFilter(filter);
-    formattedFilter = addGenericFilters(filter, formattedFilter);
+    formattedFilter = checkNameFilter('name', filter, formattedFilter);
     return await this.customerRepository.findAndCount(formattedFilter);
   }
 

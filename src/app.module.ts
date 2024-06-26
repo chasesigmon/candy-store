@@ -9,6 +9,7 @@ import { HealthCheckController } from './routes/healthcheck/healthcheck.controll
 import { CustomerController } from './routes/customer/controllers/customer.controller';
 import { CustomerModule } from './routes/customer/customer.module';
 import { CustomerService } from './routes/customer/services/customer.service';
+import { StoreModule } from './routes/store/store.module';
 
 @Module({
   imports: [
@@ -17,8 +18,9 @@ import { CustomerService } from './routes/customer/services/customer.service';
     HealthCheckModule,
     InventoryModule,
     CustomerModule,
+    StoreModule,
   ],
-  controllers: [HealthCheckController, InventoryController, CustomerController],
-  providers: [InventoryService, CustomerService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

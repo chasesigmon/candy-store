@@ -48,6 +48,15 @@ export class GenericPageOptions extends PageOptionsDto {
   filter?: string;
 }
 
+export class StorePageOptions extends PageOptionsDto {
+  @ApiPropertyOptional({
+    description:
+      'Can filter by "managerName". ex: `?filter={ "managerName": "John" }`',
+  })
+  @IsOptional()
+  filter?: string;
+}
+
 export class OrderPageOptions extends PageOptionsDto {}
 
 export const formatFilter = (filter?: PageOptionsDto) => {
@@ -69,14 +78,15 @@ export const formatFilter = (filter?: PageOptionsDto) => {
   return formattedFilter;
 };
 
-export const addGenericFilters = (
+export const checkNameFilter = (
+  field: string,
   filter?: GenericPageOptions,
   formattedFilter?: any,
 ) => {
   if (filter?.filter) {
     try {
       const parsed = JSON.parse(filter.filter);
-      parsed.name && (formattedFilter.where = { name: parsed.name });
+      parsed.name && (formattedFilter.where = { [field]: parsed.name });
     } catch (err) {
       // catch and disregard error if invalid JSON was passed in
     }
