@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, Query } from '@nestjs/common';
-import { PageOptionsDto } from '../../../validation/filters';
+import { GenericPageOptions } from '../../../validation/filters';
 import {
   InventoryDTO,
   InventoryListResponse,
@@ -15,7 +15,7 @@ export class InventoryService {
   }
 
   async findAll(
-    @Query() filter?: PageOptionsDto,
+    @Query() filter?: GenericPageOptions,
   ): Promise<InventoryListResponse> {
     const result = await this.inventoryRepository.findAll(filter);
     return {

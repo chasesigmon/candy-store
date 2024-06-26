@@ -30,6 +30,7 @@ describe('CustomerController', () => {
       const result = await customerController.create(customer);
       expect(result).toBeDefined();
       expect(result.name).toEqual(customer.name);
+      insertCount++;
     });
   });
 

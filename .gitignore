@@ -36,3 +36,6 @@ lerna-debug.log*
 
 # Misc
 /postgres-data
+/mysql-db
+/data
+coverage

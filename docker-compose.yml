@@ -1,20 +1,14 @@
 version: '3'
 services:
-  postgres:
-    container_name: postgres
-    image: postgres:latest
+  mariadb:
+    image: mariadb
+    restart: always
+    command: --init-file /scripts/init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cnd_str_db
     ports:
-      - '5432:5432'
+      - '3306:3306'
     volumes:
-      - pgdata:/var/lib/postgresql/data
-    env_file:
-      - docker.env
-    networks:
-      - postgres
-
-volumes:
-  pgdata:
-
-networks:
-  postgres:
-    driver: bridge
+      - ./scripts/init.sql:/scripts/init.sql
+      - ./data:/var/lib/mysql

@@ -8,6 +8,7 @@ export enum SortOrder {
 }
 
 export class PageOptionsDto {
+  @ApiPropertyOptional()
   @IsOptional()
   orderBy?: string;
 
@@ -39,6 +40,16 @@ export class PageOptionsDto {
   pageSize?: number = 10;
 }
 
+export class GenericPageOptions extends PageOptionsDto {
+  @ApiPropertyOptional({
+    description: 'Can filter by "name". ex: `?filter={ "name": "John" }`',
+  })
+  @IsOptional()
+  filter?: string;
+}
+
+export class OrderPageOptions extends PageOptionsDto {}
+
 export const formatFilter = (filter?: PageOptionsDto) => {
   let formattedFilter: any = {};
   const page = filter?.page || 1;
@@ -55,5 +66,20 @@ export const formatFilter = (filter?: PageOptionsDto) => {
     formattedFilter.order = { ['id']: SortOrder.ASC };
   }
 
+  return formattedFilter;
+};
+
+export const addGenericFilters = (
+  filter?: GenericPageOptions,
+  formattedFilter?: any,
+) => {
+  if (filter?.filter) {
+    try {
+      const parsed = JSON.parse(filter.filter);
+      parsed.name && (formattedFilter.where = { name: parsed.name });
+    } catch (err) {
+      // catch and disregard error if invalid JSON was passed in
+    }
+  }
   return formattedFilter;
 };

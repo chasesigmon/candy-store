@@ -17,7 +17,7 @@ import {
   Inventory,
   InventoryListResponse,
 } from '../models/inventory.entity';
-import { PageOptionsDto } from '../../../validation/filters';
+import { GenericPageOptions } from '../../../validation/filters';
 
 @Controller('/inventories')
 export class InventoryController {
@@ -31,7 +31,7 @@ export class InventoryController {
 
   @Get('')
   async findAll(
-    @Query() filter?: PageOptionsDto,
+    @Query() filter?: GenericPageOptions,
   ): Promise<InventoryListResponse> {
     return this.inventoryService.findAll(filter);
   }

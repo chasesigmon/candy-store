@@ -1,6 +1,10 @@
 import { Injectable, Query } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { formatFilter, PageOptionsDto } from '../../../validation/filters';
+import {
+  addGenericFilters,
+  formatFilter,
+  GenericPageOptions,
+} from '../../../validation/filters';
 import { Repository } from 'typeorm';
 import { Inventory, InventoryDTO } from '../models/inventory.entity';
 
@@ -12,15 +16,16 @@ export class InventoryRepository {
   ) {}
 
   async create(body: InventoryDTO): Promise<Inventory> {
-    return this.inventoryRepository.create(body);
+    const result = await this.inventoryRepository.save(body);
+    return result;
   }
 
   async findAll(
-    @Query() filter?: PageOptionsDto,
+    @Query() filter?: GenericPageOptions,
   ): Promise<[Inventory[], number]> {
-    const formattedFilter = formatFilter(filter);
-    const result = await this.inventoryRepository.findAndCount(formattedFilter);
-    return result;
+    let formattedFilter = formatFilter(filter);
+    formattedFilter = addGenericFilters(filter, formattedFilter);
+    return await this.inventoryRepository.findAndCount(formattedFilter);
   }
 
   async find(id: string): Promise<Inventory> {

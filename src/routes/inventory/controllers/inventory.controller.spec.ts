@@ -32,6 +32,7 @@ describe('InventoryController', () => {
       const result = await inventoryController.create(inventory);
       expect(result).toBeDefined();
       expect(result.name).toEqual(inventory.name);
+      insertCount++;
     });
   });
 

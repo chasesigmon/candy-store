@@ -1,6 +1,10 @@
 import { Injectable, Query } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { formatFilter, PageOptionsDto } from '../../../validation/filters';
+import {
+  addGenericFilters,
+  formatFilter,
+  PageOptionsDto,
+} from '../../../validation/filters';
 import { Repository } from 'typeorm';
 import { Customer, CustomerDTO } from '../models/customer.entity';
 
@@ -12,15 +16,15 @@ export class CustomerRepository {
   ) {}
 
   async create(body: CustomerDTO): Promise<Customer> {
-    return this.customerRepository.create(body);
+    return this.customerRepository.save(body);
   }
 
   async findAll(
     @Query() filter?: PageOptionsDto,
   ): Promise<[Customer[], number]> {
-    const formattedFilter = formatFilter(filter);
-    const result = await this.customerRepository.findAndCount(formattedFilter);
-    return result;
+    let formattedFilter = formatFilter(filter);
+    formattedFilter = addGenericFilters(filter, formattedFilter);
+    return await this.customerRepository.findAndCount(formattedFilter);
   }
 
   async find(id: string): Promise<Customer> {
