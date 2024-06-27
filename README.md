@@ -1,6 +1,6 @@
 ## Description
 
-Candy Store API (https://github.com/FlorenceHC/public-api-service)
+Candy Store API (https://github.com/chasesigmon/candy-store)
 
 [Nest] A NestJS project.\
 [Typescript] A Typescript project.\
