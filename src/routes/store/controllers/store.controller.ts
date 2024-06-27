@@ -8,7 +8,6 @@ import {
   Query,
   UsePipes,
 } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { StoreService } from '../services/store.service';
 import { JoiValidationPipe } from '../../../validation/validation.pipe';
 import {
@@ -18,23 +17,32 @@ import {
   StoreListResponse,
 } from '../models/store.entity';
 import { PageOptionsDto } from '../../../validation/filters';
+import {
+  CreateStoreDocs,
+  GetStoreDocs,
+  GetStoresDocs,
+  UpdateStoreDocs,
+} from './store.controller.docs';
 
 @Controller('/stores')
 export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 
   @Post('')
+  @CreateStoreDocs()
   @UsePipes(new JoiValidationPipe(StoreRequestSchema))
   async create(@Body() body: StoreDTO): Promise<Store> {
     return this.storeService.create(body);
   }
 
   @Get('')
+  @GetStoresDocs()
   async findAll(@Query() filter?: PageOptionsDto): Promise<StoreListResponse> {
     return this.storeService.findAll(filter);
   }
 
   @Put('/:id')
+  @UpdateStoreDocs()
   @UsePipes(new JoiValidationPipe(StoreRequestSchema))
   async update(
     @Param() params: { id: string },
@@ -44,6 +52,7 @@ export class StoreController {
   }
 
   @Get('/:id')
+  @GetStoreDocs()
   async find(@Param() params: { id: string }): Promise<Store> {
     return this.storeService.find(params.id);
   }

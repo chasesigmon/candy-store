@@ -78,13 +78,14 @@ export class OrderRepository {
     const date = new Date();
     const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
     const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    const result = await this.orderRepository
+    return await this.orderRepository
       .createQueryBuilder('order')
-      .addSelect(
-        `SELECT * from order WHERE createDate >= ${firstDay} AND createDate <= ${lastDay}`,
-      )
+      .where(`createDate >= :firstDay AND createDate <= :lastDay`, {
+        firstDay,
+        lastDay,
+      })
       .groupBy('storeId')
-      .addGroupBy('status');
-    return result;
+      .addGroupBy('status')
+      .getMany();
   }
 }

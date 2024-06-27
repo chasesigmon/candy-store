@@ -2,12 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { EntityManager, getConnection } from 'typeorm';
 import { TypeOrmSQLITETestingModule } from '../../../../test-utils/TypeORMSQLITETestingModule';
 import { OrderModule } from '../order.module';
-import {
-  Order,
-  CreateOrderDTO,
-  UpdateOrderDTO,
-  StatusEnum,
-} from '../models/order.entity';
+import { Order, CreateOrderDTO, StatusEnum } from '../models/order.entity';
 import { OrderController } from './order.controller';
 import { Customer } from '../../customer/models/customer.entity';
 import { Store } from '../../store/models/store.entity';

@@ -2,7 +2,6 @@ import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { TypeOrmSQLITETestingModule } from '../test-utils/TypeOrmSQLITETestingModule';
-import { AppModule } from '../src/app.module';
 import { HealthCheckModule } from '../src/routes/healthcheck/healthcheck.module';
 
 describe('E2E HealthcheckController', () => {

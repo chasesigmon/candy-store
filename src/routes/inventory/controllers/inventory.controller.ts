@@ -8,7 +8,6 @@ import {
   Query,
   UsePipes,
 } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { InventoryService } from '../services/inventory.service';
 import { JoiValidationPipe } from '../../../validation/validation.pipe';
 import {
@@ -18,18 +17,26 @@ import {
   InventoryListResponse,
 } from '../models/inventory.entity';
 import { GenericPageOptionsDto } from '../../../validation/filters';
+import {
+  CreateInventoryDocs,
+  GetInventoriesDocs,
+  GetInventoryDocs,
+  UpdateInventoryDocs,
+} from './inventory.controller.docs';
 
 @Controller('/inventories')
 export class InventoryController {
   constructor(private readonly inventoryService: InventoryService) {}
 
   @Post('')
+  @CreateInventoryDocs()
   @UsePipes(new JoiValidationPipe(InventoryRequestSchema))
   async create(@Body() body: InventoryDTO): Promise<Inventory> {
     return this.inventoryService.create(body);
   }
 
   @Get('')
+  @GetInventoriesDocs()
   async findAll(
     @Query() filter?: GenericPageOptionsDto,
   ): Promise<InventoryListResponse> {
@@ -37,6 +44,7 @@ export class InventoryController {
   }
 
   @Put('/:id')
+  @UpdateInventoryDocs()
   @UsePipes(new JoiValidationPipe(InventoryRequestSchema))
   async update(
     @Param() params: { id: string },
@@ -46,6 +54,7 @@ export class InventoryController {
   }
 
   @Get('/:id')
+  @GetInventoryDocs()
   async find(@Param() params: { id: string }): Promise<Inventory> {
     return this.inventoryService.find(params.id);
   }

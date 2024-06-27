@@ -1,0 +1,56 @@
+import { applyDecorators, BadRequestException } from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiOperation,
+} from '@nestjs/swagger';
+import { Order } from '../models/order.entity';
+
+export const CreateOrderDocs = () =>
+  applyDecorators(
+    ApiOperation({
+      summary: 'Create order',
+      description: 'Create a new order',
+    }),
+    ApiCreatedResponse({ type: Order }),
+    ApiBadRequestResponse({
+      description: new BadRequestException().message,
+    }),
+  );
+
+export const UpdateOrderDocs = () =>
+  applyDecorators(
+    ApiOperation({
+      summary: 'Update order',
+      description: 'Update an order',
+    }),
+    ApiOkResponse({ type: Order }),
+    ApiBadRequestResponse({
+      description: new BadRequestException().message,
+    }),
+  );
+
+export const GetOrderDocs = () =>
+  applyDecorators(
+    ApiOperation({
+      summary: 'Get order',
+      description: 'Get an order',
+    }),
+    ApiOkResponse({ type: Order }),
+    ApiBadRequestResponse({
+      description: new BadRequestException().message,
+    }),
+  );
+
+export const GetOrdersDocs = () =>
+  applyDecorators(
+    ApiOperation({
+      summary: 'Get orders',
+      description: 'Get a list of orders',
+    }),
+    ApiOkResponse({ type: Order, isArray: true }),
+    ApiBadRequestResponse({
+      description: new BadRequestException().message,
+    }),
+  );

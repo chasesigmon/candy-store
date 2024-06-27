@@ -20,18 +20,26 @@ import {
   OrderListResponse,
 } from '../models/order.entity';
 import { OrderPageOptionsDto } from '../../../validation/filters';
+import {
+  CreateOrderDocs,
+  GetOrderDocs,
+  GetOrdersDocs,
+  UpdateOrderDocs,
+} from './order.controller.docs';
 
 @Controller('/orders')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Post('')
+  @CreateOrderDocs()
   @UsePipes(new JoiValidationPipe(CreateOrderRequestSchema))
   async create(@Body() body: CreateOrderDTO): Promise<Order> {
     return this.orderService.create(body);
   }
 
   @Get('')
+  @GetOrdersDocs()
   async findAll(
     @Query() filter?: OrderPageOptionsDto,
   ): Promise<OrderListResponse> {
@@ -39,6 +47,7 @@ export class OrderController {
   }
 
   @Put('/:id')
+  @UpdateOrderDocs()
   @UsePipes(new JoiValidationPipe(UpdateOrderRequestSchema))
   async update(
     @Param() params: { id: string },
@@ -48,6 +57,7 @@ export class OrderController {
   }
 
   @Get('/:id')
+  @GetOrderDocs()
   async find(@Param() params: { id: string }): Promise<Order> {
     return this.orderService.find(params.id);
   }
