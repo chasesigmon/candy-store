@@ -2,14 +2,12 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { InventoryModule } from './routes/inventory/inventory.module';
-import { InventoryController } from './routes/inventory/controllers/inventory.controller';
-import { InventoryService } from './routes/inventory/services/inventory.service';
 import { HealthCheckModule } from './routes/healthcheck/healthcheck.module';
-import { HealthCheckController } from './routes/healthcheck/healthcheck.controller';
-import { CustomerController } from './routes/customer/controllers/customer.controller';
 import { CustomerModule } from './routes/customer/customer.module';
-import { CustomerService } from './routes/customer/services/customer.service';
 import { StoreModule } from './routes/store/store.module';
+import { OrderModule } from './routes/order/order.module';
+import { ReportModule } from './routes/report/report.module';
+import { SeederModule } from './database/seeder.module';
 
 @Module({
   imports: [
@@ -19,6 +17,9 @@ import { StoreModule } from './routes/store/store.module';
     InventoryModule,
     CustomerModule,
     StoreModule,
+    OrderModule,
+    ReportModule,
+    SeederModule,
   ],
   controllers: [],
   providers: [],

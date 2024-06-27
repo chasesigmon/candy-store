@@ -1,6 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { Transform, Type } from 'class-transformer';
-import { IsNumber, IsOptional, IsEnum, Min, IsInt, Max } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsOptional, IsEnum, Min, IsInt, Max } from 'class-validator';
 
 export enum SortOrder {
   ASC = 'ASC',
@@ -40,7 +40,7 @@ export class PageOptionsDto {
   pageSize?: number = 10;
 }
 
-export class GenericPageOptions extends PageOptionsDto {
+export class GenericPageOptionsDto extends PageOptionsDto {
   @ApiPropertyOptional({
     description: 'Can filter by "name". ex: `?filter={ "name": "John" }`',
   })
@@ -48,7 +48,7 @@ export class GenericPageOptions extends PageOptionsDto {
   filter?: string;
 }
 
-export class StorePageOptions extends PageOptionsDto {
+export class StorePageOptionsDto extends PageOptionsDto {
   @ApiPropertyOptional({
     description:
       'Can filter by "managerName". ex: `?filter={ "managerName": "John" }`',
@@ -57,7 +57,14 @@ export class StorePageOptions extends PageOptionsDto {
   filter?: string;
 }
 
-export class OrderPageOptions extends PageOptionsDto {}
+export class OrderPageOptionsDto extends PageOptionsDto {
+  @ApiPropertyOptional({
+    description:
+      'Can filter by "customerId, inventoryId, storeId, and status". ex: `?filter={ "status": "PENDING/CANCELLED/DELIVERED" }`',
+  })
+  @IsOptional()
+  filter?: string;
+}
 
 export const formatFilter = (filter?: PageOptionsDto) => {
   let formattedFilter: any = {};
@@ -80,7 +87,7 @@ export const formatFilter = (filter?: PageOptionsDto) => {
 
 export const checkNameFilter = (
   field: string,
-  filter?: GenericPageOptions,
+  filter?: GenericPageOptionsDto,
   formattedFilter?: any,
 ) => {
   if (filter?.filter) {

@@ -16,6 +16,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         password: 'root',
         database: 'cnd_str_db',
         entities: [__dirname + '/../**/*.entity.{js,ts}'],
+        seeds: ['./seed.ts'],
         synchronize: true,
       }),
     }),

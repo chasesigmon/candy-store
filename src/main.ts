@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { RedocModule } from 'nestjs-redoc';
 import { AppModule } from './app.module';
+import { Seeder } from './database/seeder';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,6 +17,9 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   await RedocModule.setup('/api', app, document, {});
+
+  const seeder = await app.get(Seeder);
+  await seeder.seed();
 
   await app.listen(3000);
 }

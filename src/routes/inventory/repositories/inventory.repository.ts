@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import {
   checkNameFilter,
   formatFilter,
-  GenericPageOptions,
+  GenericPageOptionsDto,
 } from '../../../validation/filters';
 import { Repository } from 'typeorm';
 import { Inventory, InventoryDTO } from '../models/inventory.entity';
@@ -21,18 +21,18 @@ export class InventoryRepository {
   }
 
   async findAll(
-    @Query() filter?: GenericPageOptions,
+    @Query() filter?: GenericPageOptionsDto,
   ): Promise<[Inventory[], number]> {
     let formattedFilter = formatFilter(filter);
     formattedFilter = checkNameFilter('name', filter, formattedFilter);
     return await this.inventoryRepository.findAndCount(formattedFilter);
   }
 
-  async find(id: string): Promise<Inventory> {
-    return this.inventoryRepository.findOne(parseInt(id));
+  async find(id: number): Promise<Inventory> {
+    return this.inventoryRepository.findOne(id);
   }
 
-  async update(id: string, body: InventoryDTO): Promise<Inventory> {
-    return this.inventoryRepository.save({ id: parseInt(id), ...body });
+  async update(id: number, body: InventoryDTO): Promise<Inventory> {
+    return this.inventoryRepository.save({ id, ...body });
   }
 }

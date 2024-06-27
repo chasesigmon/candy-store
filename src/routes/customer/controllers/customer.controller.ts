@@ -17,7 +17,7 @@ import {
   Customer,
   CustomerListResponse,
 } from '../models/customer.entity';
-import { PageOptionsDto } from '../../../validation/filters';
+import { GenericPageOptionsDto } from '../../../validation/filters';
 
 @Controller('/customers')
 export class CustomerController {
@@ -31,7 +31,7 @@ export class CustomerController {
 
   @Get('')
   async findAll(
-    @Query() filter?: PageOptionsDto,
+    @Query() filter?: GenericPageOptionsDto,
   ): Promise<CustomerListResponse> {
     return this.customerService.findAll(filter);
   }

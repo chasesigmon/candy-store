@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import * as Joi from 'joi';
 
 export class CustomerDTO {
-  public name: string;
+  name: string;
 }
 
 export class CustomerListResponse {

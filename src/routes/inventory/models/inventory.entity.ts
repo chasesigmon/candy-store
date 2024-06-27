@@ -2,9 +2,9 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import * as Joi from 'joi';
 
 export class InventoryDTO {
-  public name: string;
-  public manufactureDate: Date;
-  public availableQuantity: number;
+  name: string;
+  manufactureDate: Date;
+  availableQuantity: number;
 }
 
 export class InventoryListResponse {

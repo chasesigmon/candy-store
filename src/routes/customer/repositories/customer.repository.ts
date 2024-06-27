@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import {
   checkNameFilter,
   formatFilter,
-  PageOptionsDto,
+  GenericPageOptionsDto,
 } from '../../../validation/filters';
 import { Repository } from 'typeorm';
 import { Customer, CustomerDTO } from '../models/customer.entity';
@@ -20,18 +20,18 @@ export class CustomerRepository {
   }
 
   async findAll(
-    @Query() filter?: PageOptionsDto,
+    @Query() filter?: GenericPageOptionsDto,
   ): Promise<[Customer[], number]> {
     let formattedFilter = formatFilter(filter);
     formattedFilter = checkNameFilter('name', filter, formattedFilter);
     return await this.customerRepository.findAndCount(formattedFilter);
   }
 
-  async find(id: string): Promise<Customer> {
-    return this.customerRepository.findOne(parseInt(id));
+  async find(id: number): Promise<Customer> {
+    return this.customerRepository.findOne(id);
   }
 
-  async update(id: string, body: CustomerDTO): Promise<Customer> {
-    return this.customerRepository.save({ id: parseInt(id), ...body });
+  async update(id: number, body: CustomerDTO): Promise<Customer> {
+    return this.customerRepository.save({ id, ...body });
   }
 }
