@@ -57,6 +57,11 @@ export class OrderService {
       );
     }
 
+    await this.inventoryRepository.update(inventory.id, {
+      ...inventory,
+      availableQuantity: inventory.availableQuantity - body.quantity,
+    });
+
     return await this.orderRepository.create(body);
   }
 
@@ -70,7 +75,7 @@ export class OrderService {
     };
   }
 
-  async update(id: string, body: UpdateOrderDTO): Promise<Order> {
+  async patch(id: string, body: UpdateOrderDTO): Promise<Order> {
     const order = await this.find(id);
 
     // If the order is cancelled then return the quantity to the inventory
@@ -82,7 +87,7 @@ export class OrderService {
       });
     }
 
-    return this.orderRepository.update(id, body);
+    return this.orderRepository.patch(id, body);
   }
 
   async find(id: string): Promise<Order> {

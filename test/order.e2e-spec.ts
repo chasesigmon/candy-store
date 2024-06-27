@@ -2,12 +2,16 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { EntityManager, getConnection } from 'typeorm';
-import { TypeOrmSQLITETestingModule } from '../test-utils/TypeORMSQLITETestingModule';
+import {
+  JwtGuardMock,
+  TypeOrmSQLITETestingModule,
+} from '../test-utils/TypeORMSQLITETestingModule';
 import { OrderModule } from '../src/routes/order/order.module';
 import { Order, StatusEnum } from '../src/routes/order/models/order.entity';
 import { Customer } from '../src/routes/customer/models/customer.entity';
 import { Inventory } from '../src/routes/inventory/models/inventory.entity';
 import { Store } from '../src/routes/store/models/store.entity';
+import { JwtGuard } from '../src/routes/auth/jwt.guard';
 
 describe('OrderController (e2e)', () => {
   let app: INestApplication;
@@ -16,7 +20,11 @@ describe('OrderController (e2e)', () => {
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [...TypeOrmSQLITETestingModule(), OrderModule],
-    }).compile();
+      providers: [],
+    })
+      .overrideGuard(JwtGuard)
+      .useClass(JwtGuardMock)
+      .compile();
 
     const connection = await getConnection();
     const entityManager = connection.createEntityManager();
@@ -69,7 +77,7 @@ describe('OrderController (e2e)', () => {
           customerId: customerId1,
           inventoryId: inventoryId1,
           storeId: storeId1,
-          quantity: 50,
+          quantity: 1,
         };
         const response = await request(app.getHttpServer())
           .post(route)
@@ -88,7 +96,7 @@ describe('OrderController (e2e)', () => {
       });
     });
 
-    describe('(PUT) update', () => {
+    describe('(PATCH) update', () => {
       let id: string = '';
       beforeAll(async () => {
         const connection = await getConnection();
@@ -105,12 +113,12 @@ describe('OrderController (e2e)', () => {
         const orders = await request(app.getHttpServer()).get(route);
         id = orders.body.items[0].id;
       });
-      it('200 - should return an updated Order item', async () => {
+      it('200 - should return a patched Order item', async () => {
         const order = {
           status: StatusEnum.DELIVERED,
         };
         const response = await request(app.getHttpServer())
-          .put(`${route}/${id}`)
+          .patch(`${route}/${id}`)
           .send(order);
         expect(response.statusCode).toBe(HttpStatus.OK);
         expect(response.body.status).toEqual(order.status);
@@ -119,7 +127,7 @@ describe('OrderController (e2e)', () => {
       it('400 - should fail with a missing property', async () => {
         const order = {};
         const response = await request(app.getHttpServer())
-          .put(`${route}/${id}`)
+          .patch(`${route}/${id}`)
           .send(order);
         expect(response.statusCode).toBe(HttpStatus.BAD_REQUEST);
       });
@@ -129,7 +137,7 @@ describe('OrderController (e2e)', () => {
           status: StatusEnum.DELIVERED,
         };
         const response = await request(app.getHttpServer())
-          .put(`${route}/30`)
+          .patch(`${route}/30`)
           .send(order);
         expect(response.statusCode).toBe(HttpStatus.NOT_FOUND);
       });

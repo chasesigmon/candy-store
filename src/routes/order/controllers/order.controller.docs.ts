@@ -21,12 +21,12 @@ export const CreateOrderDocs = () =>
     }),
   );
 
-export const UpdateOrderDocs = () =>
+export const PatchOrderDocs = () =>
   applyDecorators(
     ApiTags('order'),
     ApiOperation({
-      summary: 'Update order',
-      description: 'Update an order',
+      summary: 'Patch order',
+      description: 'Patch an order status',
     }),
     ApiOkResponse({ type: Order }),
     ApiBadRequestResponse({

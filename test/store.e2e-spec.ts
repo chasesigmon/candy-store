@@ -2,9 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { EntityManager, getConnection } from 'typeorm';
-import { TypeOrmSQLITETestingModule } from '../test-utils/TypeORMSQLITETestingModule';
+import {
+  JwtGuardMock,
+  TypeOrmSQLITETestingModule,
+} from '../test-utils/TypeORMSQLITETestingModule';
 import { StoreModule } from '../src/routes/store/store.module';
 import { Store } from '../src/routes/store/models/store.entity';
+import { JwtGuard } from '../src/routes/auth/jwt.guard';
 
 describe('StoreController (e2e)', () => {
   let app: INestApplication;
@@ -12,7 +16,10 @@ describe('StoreController (e2e)', () => {
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [...TypeOrmSQLITETestingModule(), StoreModule],
-    }).compile();
+    })
+      .overrideGuard(JwtGuard)
+      .useClass(JwtGuardMock)
+      .compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();

@@ -67,7 +67,7 @@ describe('OrderController', () => {
         customerId: customerId1,
         inventoryId: inventoryId1,
         storeId: storeId1,
-        quantity: 50,
+        quantity: 1,
       };
       const result = await orderController.create(order);
       expect(result).toBeDefined();
@@ -76,7 +76,7 @@ describe('OrderController', () => {
     });
   });
 
-  describe('update()', () => {
+  describe('patch()', () => {
     let connection;
     let entityManager: EntityManager;
     beforeAll(async () => {
@@ -91,13 +91,13 @@ describe('OrderController', () => {
       insertCount++;
     });
 
-    it('should succeed and return with an updated order item', async () => {
+    it('should succeed and return with a patched order item', async () => {
       const order = {
         status: StatusEnum.DELIVERED,
       };
       const orders = await orderController.findAll();
       const id = orders.items[0].id.toString();
-      const result = await orderController.update({ id }, order);
+      const result = await orderController.patch({ id }, order);
       expect(result).toBeDefined();
       expect(result.status).toEqual(order.status);
     });

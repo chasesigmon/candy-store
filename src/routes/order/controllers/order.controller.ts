@@ -3,8 +3,8 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
-  Put,
   Query,
   UseGuards,
   UsePipes,
@@ -25,7 +25,7 @@ import {
   CreateOrderDocs,
   GetOrderDocs,
   GetOrdersDocs,
-  UpdateOrderDocs,
+  PatchOrderDocs,
 } from './order.controller.docs';
 import { JwtGuard } from '../../auth/jwt.guard';
 
@@ -49,14 +49,14 @@ export class OrderController {
     return this.orderService.findAll(filter);
   }
 
-  @Put('/:id')
-  @UpdateOrderDocs()
+  @Patch('/:id')
+  @PatchOrderDocs()
   @UsePipes(new JoiValidationPipe(UpdateOrderRequestSchema))
-  async update(
+  async patch(
     @Param() params: { id: string },
     @Body() body: UpdateOrderDTO,
   ): Promise<Order> {
-    return this.orderService.update(params.id, body);
+    return this.orderService.patch(params.id, body);
   }
 
   @Get('/:id')

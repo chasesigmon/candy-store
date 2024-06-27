@@ -65,7 +65,7 @@ export class OrderRepository {
     return this.orderRepository.findOne(parseInt(id));
   }
 
-  async update(id: string, body: UpdateOrderDTO): Promise<Order> {
+  async patch(id: string, body: UpdateOrderDTO): Promise<Order> {
     return this.orderRepository.save({
       id: parseInt(id),
       ...body,

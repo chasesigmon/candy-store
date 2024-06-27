@@ -56,4 +56,4 @@ $ pnpm run test:e2e test/healthcheck
 
 ## Architecture Design
 
-The design can be found in the `/assets/candy-store.yaml` file.
+The design can be found in the `/assets/candy-store.yaml` file. A developer would be able to fully implement the Candy Store API by following the API design.
