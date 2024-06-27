@@ -6,6 +6,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
   UsePipes,
 } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
@@ -26,8 +27,10 @@ import {
   GetOrdersDocs,
   UpdateOrderDocs,
 } from './order.controller.docs';
+import { JwtGuard } from '../../auth/jwt.guard';
 
 @Controller('/orders')
+@UseGuards(JwtGuard)
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 

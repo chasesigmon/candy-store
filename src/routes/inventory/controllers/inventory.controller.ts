@@ -6,6 +6,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
   UsePipes,
 } from '@nestjs/common';
 import { InventoryService } from '../services/inventory.service';
@@ -23,8 +24,10 @@ import {
   GetInventoryDocs,
   UpdateInventoryDocs,
 } from './inventory.controller.docs';
+import { JwtGuard } from '../../auth/jwt.guard';
 
 @Controller('/inventories')
+@UseGuards(JwtGuard)
 export class InventoryController {
   constructor(private readonly inventoryService: InventoryService) {}
 

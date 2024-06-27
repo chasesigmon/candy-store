@@ -8,6 +8,9 @@ import { StoreModule } from './routes/store/store.module';
 import { OrderModule } from './routes/order/order.module';
 import { ReportModule } from './routes/report/report.module';
 import { SeederModule } from './database/seeder.module';
+import { AuthModule } from './routes/auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtGuard } from './routes/auth/jwt.guard';
 
 @Module({
   imports: [
@@ -20,8 +23,14 @@ import { SeederModule } from './database/seeder.module';
     OrderModule,
     ReportModule,
     SeederModule,
+    AuthModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtGuard,
+    },
+  ],
 })
 export class AppModule {}

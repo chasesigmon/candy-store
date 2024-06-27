@@ -6,6 +6,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
   UsePipes,
 } from '@nestjs/common';
 import { StoreService } from '../services/store.service';
@@ -23,8 +24,10 @@ import {
   GetStoresDocs,
   UpdateStoreDocs,
 } from './store.controller.docs';
+import { JwtGuard } from '../../auth/jwt.guard';
 
 @Controller('/stores')
+@UseGuards(JwtGuard)
 export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 

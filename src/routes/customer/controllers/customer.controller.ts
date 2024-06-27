@@ -6,6 +6,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
   UsePipes,
 } from '@nestjs/common';
 import { CustomerService } from '../services/customer.service';
@@ -23,8 +24,10 @@ import {
   UpdateCustomerDocs,
 } from './customer.controller.docs';
 import { GenericPageOptionsDto } from '../../../validation/filters';
+import { JwtGuard } from '../../auth/jwt.guard';
 
 @Controller('/customers')
+@UseGuards(JwtGuard)
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
