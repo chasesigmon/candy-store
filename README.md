@@ -32,7 +32,11 @@ Steps that occur on start:
 
 Make requests at `localhost:3000`.
 
+<img width="1065" alt="Screen Shot 2024-06-27 at 7 48 42 PM" src="https://github.com/chasesigmon/candy-store/assets/7799494/5c2ce671-c328-4e3c-a8bc-426196cfb4ef">
+
 The swagger documentation is located at `localhost:3000/api`.
+
+<img width="478" alt="Screen Shot 2024-06-27 at 7 47 47 PM" src="https://github.com/chasesigmon/candy-store/assets/7799494/f5eab21b-e75c-48d4-aa07-44e3581c1aa7">
 
 An access token is necessary to make requests to customers, inventories, stores, orders, and report endpoints. A token can be generated at `localhost:3000/auth`. Once generated it should be used as the Bearer Token.
 
