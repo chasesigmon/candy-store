@@ -1,14 +1,34 @@
-TODO:
+## Description
 
-- fill out readme
-- add screenshots to readme on github
-- add swagger annotations and make sure /api link looks good
-- clean up all files
-- in the controller have @Post() and then @CreateCustomerDocs() for example to clean up that file
-  - add customer.controller.docs.ts
-- see about adding some hard coded JWT Authentication logic, look at a tutorial
-- fill out candy-store.yaml, pull up IssuesApi yaml on the other screen and work off of it
-- take your time and test EVERYTHING tonight
-  - unit tests
-  - e2e tests
-  - postman for ALL routes
+Candy Store API (https://github.com/FlorenceHC/public-api-service)
+
+[Nest] A NestJS project.\
+[Typescript] A Typescript project.\
+[PNPM] A pnpm project.\
+[Auth] Bearer token auth.
+
+The intention of this service is to exist outside of the API Gateway (Out of Band service). This allows uploads and downloads of files greater than 10 MB in size.
+
+## Running the app
+
+```bash
+$ pnpm run start
+```
+
+The swagger documentation is located at `localhost:3000/api`.
+
+## Testing
+
+```bash
+# unit tests
+$ pnpm run test
+
+# run a specific test or tests in a specific directory
+$ pnpm run test src/routes/healthcheck
+
+# e2e tests
+$ pnpm run test:e2e
+
+# run a specific test or tests in a specific directory
+$ pnpm run test:e2e test/healthcheck
+```

@@ -4,11 +4,13 @@ import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiTags,
 } from '@nestjs/swagger';
 import { Order } from '../models/order.entity';
 
 export const CreateOrderDocs = () =>
   applyDecorators(
+    ApiTags('order'),
     ApiOperation({
       summary: 'Create order',
       description: 'Create a new order',
@@ -21,6 +23,7 @@ export const CreateOrderDocs = () =>
 
 export const UpdateOrderDocs = () =>
   applyDecorators(
+    ApiTags('order'),
     ApiOperation({
       summary: 'Update order',
       description: 'Update an order',
@@ -33,6 +36,7 @@ export const UpdateOrderDocs = () =>
 
 export const GetOrderDocs = () =>
   applyDecorators(
+    ApiTags('order'),
     ApiOperation({
       summary: 'Get order',
       description: 'Get an order',
@@ -45,6 +49,7 @@ export const GetOrderDocs = () =>
 
 export const GetOrdersDocs = () =>
   applyDecorators(
+    ApiTags('order'),
     ApiOperation({
       summary: 'Get orders',
       description: 'Get a list of orders',

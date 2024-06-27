@@ -1,4 +1,5 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { Order } from '../../order/models/order.entity';
 import { JwtGuard } from '../../auth/jwt.guard';
 import { OrderService } from '../../order/services/order.service';
 import { GetReportDocs } from './report.controller.docs';
@@ -10,7 +11,7 @@ export class ReportController {
 
   @Get('')
   @GetReportDocs()
-  async report(): Promise<any> {
+  async report(): Promise<Order[]> {
     return this.orderService.report();
   }
 }

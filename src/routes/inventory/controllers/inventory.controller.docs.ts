@@ -4,11 +4,13 @@ import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiTags,
 } from '@nestjs/swagger';
 import { Inventory } from '../models/inventory.entity';
 
 export const CreateInventoryDocs = () =>
   applyDecorators(
+    ApiTags('inventory'),
     ApiOperation({
       summary: 'Create inventory',
       description: 'Create a new inventory',
@@ -21,6 +23,7 @@ export const CreateInventoryDocs = () =>
 
 export const UpdateInventoryDocs = () =>
   applyDecorators(
+    ApiTags('inventory'),
     ApiOperation({
       summary: 'Update inventory',
       description: 'Update an inventory',
@@ -33,6 +36,7 @@ export const UpdateInventoryDocs = () =>
 
 export const GetInventoryDocs = () =>
   applyDecorators(
+    ApiTags('inventory'),
     ApiOperation({
       summary: 'Get inventory',
       description: 'Get an inventory',
@@ -45,6 +49,7 @@ export const GetInventoryDocs = () =>
 
 export const GetInventoriesDocs = () =>
   applyDecorators(
+    ApiTags('inventory'),
     ApiOperation({
       summary: 'Get inventories',
       description: 'Get a list of inventories',
