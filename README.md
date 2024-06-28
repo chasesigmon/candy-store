@@ -64,10 +64,7 @@ $ pnpm run test:e2e
 # run a specific test or tests in a specific directory
 $ pnpm run test:e2e test/healthcheck
 
-# load test
-# 1.) start the app
-# 2.) need to generate an access token
-# 3.) replace any `Bearer <token>` Authorization headers in scripts/loadtest.yml
+# load test - first start the app (pnpm run start)
 $ pnpm run loadtest
 ```
 

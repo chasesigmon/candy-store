@@ -1,12 +1,21 @@
 config:
   target: http://localhost:3000
   phases:
-    - duration: 3
+    - duration: 2
       arrivalRate: 2
-      name: Startup phase
+
+before:
+  flow:
+    - log: 'Get auth token'
+    - post:
+        url: '/auth'
+        capture:
+          - json: $.access_token
+            as: token
+
 scenarios:
   - flow:
       - get:
           url: '/customers'
           headers:
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiZGF0YSIsImlhdCI6MTcxOTU5NzE3NCwiZXhwIjoxNzE5NTk3NDc0fQ.y0qgHBumg6Ks18LSXIN7oHv0jJfVgckW1Vs8FQf-YWA'
+            Authorization: 'Bearer {{ token }}'
