@@ -12,3 +12,19 @@ services:
     volumes:
       - ./scripts/init.sql:/scripts/init.sql
       - ./data:/var/lib/mysql
+    networks:
+      - default
+
+  cndstr-app:
+    container_name: cndstr-app
+    depends_on:
+      - mariadb
+    build: .
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - '3000:3000'
+    stdin_open: true
+    tty: true
+    networks:
+      - default

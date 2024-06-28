@@ -14,13 +14,20 @@ The Candy Store API allows for customer, inventory, store, and order records to 
 ## Setup
 
 ```bash
+# if pnpm is not installed then:
+$ npm i pnpm -g
+
+# if it is:
 $ pnpm run install
 ```
 
 ## Running the app
 
 ```bash
-$ pnpm run start:prod
+$ pnpm run start
+
+# to stop the app:
+$ pnpm run stop
 ```
 
 Steps that occur on start:
@@ -28,7 +35,7 @@ Steps that occur on start:
 - A MariaDB container is created
 - DB is automatically created
 - DB is seeded with customer, inventory, store, and order records
-- NestJS app runs
+- NestJS app runs in a docker container
 
 Make requests at `localhost:3000`.
 
