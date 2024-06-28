@@ -34,8 +34,8 @@ Steps that occur on start:
 
 - A MariaDB container is created
 - DB is automatically created
-- DB is seeded with customer, inventory, store, and order records
 - NestJS app runs in a docker container
+- DB is seeded with customer, inventory, store, and order records
 
 Make requests at `localhost:3000`.
 
@@ -63,6 +63,10 @@ $ pnpm run test:e2e
 
 # run a specific test or tests in a specific directory
 $ pnpm run test:e2e test/healthcheck
+
+# load test - first need to generate an access token and replace
+# any `Bearer <token>` Authorization headers in scripts/loadtest.yml
+$ pnpm run loadtest
 ```
 
 ## Architecture Design
