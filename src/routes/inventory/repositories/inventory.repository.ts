@@ -16,8 +16,7 @@ export class InventoryRepository {
   ) {}
 
   async create(body: InventoryDTO): Promise<Inventory> {
-    const result = await this.inventoryRepository.save(body);
-    return result;
+    return this.inventoryRepository.save(body);
   }
 
   async findAll(

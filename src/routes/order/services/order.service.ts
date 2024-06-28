@@ -87,7 +87,7 @@ export class OrderService {
       });
     }
 
-    return this.orderRepository.patch(id, body);
+    return await this.orderRepository.patch(id, body);
   }
 
   async find(id: string): Promise<Order> {
@@ -101,8 +101,7 @@ export class OrderService {
   }
 
   async report() {
-    const result = await this.orderRepository.report();
-    return result;
+    return this.orderRepository.report();
   }
 
   async seed() {

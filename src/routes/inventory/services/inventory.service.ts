@@ -27,7 +27,7 @@ export class InventoryService {
 
   async update(id: string, body: InventoryDTO): Promise<Inventory> {
     await this.find(id);
-    return this.inventoryRepository.update(parseInt(id), body);
+    return await this.inventoryRepository.update(parseInt(id), body);
   }
 
   async find(id: string): Promise<Inventory> {

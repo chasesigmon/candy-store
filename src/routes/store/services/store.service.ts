@@ -23,7 +23,7 @@ export class StoreService {
 
   async update(id: string, body: StoreDTO): Promise<Store> {
     await this.find(id);
-    return this.storeRepository.update(parseInt(id), body);
+    return await this.storeRepository.update(parseInt(id), body);
   }
 
   async find(id: string): Promise<Store> {
