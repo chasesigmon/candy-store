@@ -68,10 +68,10 @@ export class OrderPageOptionsDto extends PageOptionsDto {
 
 export const formatFilter = (filter?: PageOptionsDto) => {
   let formattedFilter: any = {};
-  const page = filter?.page || 1;
-  const pageSize = filter?.pageSize || 10;
+  const page = filter?.page ? parseInt(filter.page.toString()) : 1;
+  const pageSize = filter?.pageSize ? parseInt(filter.pageSize.toString()) : 10;
 
-  formattedFilter.skip = (page - 1) * (pageSize + 1);
+  formattedFilter.skip = (page - 1) * pageSize;
   formattedFilter.take = pageSize;
 
   if (filter?.orderBy) {

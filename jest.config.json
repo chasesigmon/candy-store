@@ -3,10 +3,10 @@
   "rootDir": "src",
   "testRegex": ".*\\.spec\\.ts$",
   "transform": {
-    "^.+\\.(t|j)s$": "ts-jest"
+    "^.+\\.ts$": "ts-jest"
   },
   "collectCoverage": true,
-  "collectCoverageFrom": ["**/*.(t|j)s"],
+  "collectCoverageFrom": ["**/*.ts"],
   "coverageDirectory": "./coverage",
   "testEnvironment": "node"
 }
