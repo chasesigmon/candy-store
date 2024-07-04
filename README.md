@@ -47,6 +47,8 @@ The swagger documentation is located at `localhost:3000/api`.
 
 An access token is necessary to make requests to customers, inventories, stores, orders, and report endpoints. A token can be generated at `localhost:3000/auth`. Once generated it should be used as the Bearer Token.
 
+GraphQL is also setup for the `Inventory` as an example. Make requests at `localhost:3000/candy-store` with an appropriate query.
+
 ## Testing
 
 The tests use an in memory sqlite database.
